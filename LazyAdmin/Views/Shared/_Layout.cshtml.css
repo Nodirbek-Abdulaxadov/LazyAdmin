@@ -1,0 +1,46 @@
+﻿.sidebar {
+    background-color: #202529;
+    color: #fff;
+    height: 100%;
+    position: fixed;
+    width: 275px;
+    z-index: 1;
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+
+.main {
+    height: 100vh;
+    margin-left: 275px;
+    display: block;
+    width: 100%;
+    background-color: #f1f1f1;
+    overflow-x: hidden;
+    transition: 0.3s;
+}
+
+.body {
+    padding: 20px;
+}
+
+
+.toggle-button {
+    height: 40px;
+    width: 40px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border: 0.5px solid #d6d5d5;
+    background-color: #202529;
+    color: #fff;
+}
+
+.nav-item {
+    color: #fff;
+    margin: 5px 14px 5px 0px;
+    width: 275px;
+}
+
+.nav-link-text {
+    transition: 0.3s;
+}
