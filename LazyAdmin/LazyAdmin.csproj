@@ -6,4 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Coffee.GenericRepository" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\nbkab\Source\Repos\LazyAdmin\LazyAdmin\Ants\.editorconfig" />
+  </ItemGroup>
+
 </Project>
