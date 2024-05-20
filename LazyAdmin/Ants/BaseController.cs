@@ -45,7 +45,7 @@ public class BaseController<TDbContext, TModel>
         return View(model);
     }
 
-    public IActionResult Delete(int id)
+    public IActionResult Delete(long id)
     {
         var model = _modelSet.Find(id);
         if (model == null)

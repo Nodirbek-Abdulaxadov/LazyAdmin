@@ -1,0 +1,40 @@
+@using LazyAdmin.Ants
+@model PageModel<Test>
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <div style="width: 25%;">
+        <h2>Tests table</h2>
+        <hr />
+    </div>
+    <a href="/lazyadmin/test/create"  class="btn btn-success">
+        Create new Test
+    </a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Name</th>
+            <th>Number</th>
+
+            <th style="width: 160px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Description</td>
+                <td>@item.Name</td>
+                <td>@item.Number</td>
+
+                <td>
+                    <a href="/lazyadmin/test/edit/@item.Id" class="btn btn-primary">Edit</a>
+                    <a href="/lazyadmin/test/delete/@item.Id" onclick="return confirm('Are sure delete this item?')" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.Raw(Paginator.GetPartialView<Test>(Model, "Test", "Index"))

@@ -1,0 +1,56 @@
+@using LazyAdmin.Ants
+@model PageModel<Book>
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <div style="width: 25%;">
+        <h2>Books table</h2>
+        <hr />
+    </div>
+    <a href="/lazyadmin/book/create"  class="btn btn-success">
+        Create new Book
+    </a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Author</th>
+            <th>Description</th>
+            <th>File</th>
+            <th>ISBN</th>
+            <th>Image</th>
+            <th>Language</th>
+            <th>Pages</th>
+            <th>Publisher</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Year</th>
+
+            <th style="width: 160px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Items)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Author</td>
+                <td>@item.Description</td>
+                <td>@item.File</td>
+                <td>@item.ISBN</td>
+                <td>@item.Image</td>
+                <td>@item.Language</td>
+                <td>@item.Pages</td>
+                <td>@item.Publisher</td>
+                <td>@item.Title</td>
+                <td>@item.Type</td>
+                <td>@item.Year</td>
+
+                <td>
+                    <a href="/lazyadmin/book/edit/@item.Id" class="btn btn-primary">Edit</a>
+                    <a href="/lazyadmin/book/delete/@item.Id" onclick="return confirm('Are sure delete this item?')" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@Html.Raw(Paginator.GetPartialView<Book>(Model, "Book", "Index"))

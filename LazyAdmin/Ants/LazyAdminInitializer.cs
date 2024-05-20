@@ -9,7 +9,9 @@ public class LazyAdminInitializer<T> where T : DbContext
 
     public static void Initialize(T context)
     {
-        entityTypes = context.Model.GetEntityTypes().ToList();
+        entityTypes = context.Model.GetEntityTypes()
+            .Where(x => !x.ClrType.IsGenericType && x.GetProperties().Any(y => y.Name == "Id"))
+            .ToList();
 
         new Generator().GenerateLazyAdmin(entityTypes, context);
     }

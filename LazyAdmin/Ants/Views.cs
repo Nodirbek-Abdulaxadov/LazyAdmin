@@ -41,7 +41,7 @@ internal static class Views
                 }
             </tbody>
         </table>
-        @Html.Raw(Paginator.GetPartialView<{{entityName}}>(Model, "{{entityName}}", "Index"))
+        @Html.Raw(Paginator.GetPartialView<{{entityName}}>(Model, "{{entityName.ToLower()}}", "index", "lazyadmin"))
         """;
         return indexView;
     }
