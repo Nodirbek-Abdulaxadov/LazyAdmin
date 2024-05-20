@@ -19,10 +19,11 @@ public class BaseController<TDbContext, TModel>
         _modelSet = _context.Set<TModel>();
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int pageNumber = 1)
     {
         var list = _modelSet.ToList();
-        return View(list);
+        var pagedList = new PageModel<TModel>(list, pageNumber);
+        return View(pagedList);
     }
 
     [HttpGet]
@@ -34,9 +35,27 @@ public class BaseController<TDbContext, TModel>
     [HttpPost]
     public IActionResult Create(TModel model)
     {
-        _modelSet.Add(model);
+        if (ModelState.IsValid)
+        {
+            _modelSet.Add(model);
+            _context.SaveChanges();
+            return Redirect($"/lazyadmin/{typeof(TModel).Name.ToLower()}/index");
+        }
+
+        return View(model);
+    }
+
+    public IActionResult Delete(int id)
+    {
+        var model = _modelSet.Find(id);
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        _modelSet.Remove(model);
         _context.SaveChanges();
-        return RedirectToAction("Index");
+        return Redirect($"/lazyadmin/{typeof(TModel).Name.ToLower()}/index");
     }
 }
 

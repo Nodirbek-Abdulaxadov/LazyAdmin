@@ -62,6 +62,10 @@ internal static class Layouts
                 .nav-link-text {
                     transition: 0.3s;
                 }
+
+                .form {
+                    width: 35%;
+                }
             </style>
 
         </head>
@@ -106,7 +110,7 @@ internal static class Layouts
                         </div>
                     </header>
 
-                    <main class="body">
+                    <main class="body p-5">
                         @RenderBody()   
                     </main>
                 </div>
@@ -154,12 +158,12 @@ internal static class Layouts
         foreach (var entity in entities)
         {
             links.AppendLine();
-            links.AppendLine("<li class=\"nav-item\">");
-            links.AppendLine($"    <a href=\"/lazyadmin/{entity.ToLower()}/index\" class=\"nav-link\">");
-            links.AppendLine($"        <i class=\"bi bi-{entity.ToLower()} me-2\"></i>");
-            links.AppendLine($"        <span class=\"nav-link-text\">{entity}</span>");
-            links.AppendLine("    </a>");
-            links.AppendLine("</li>");
+            links.AppendLine("                  <li class=\"nav-item\">");
+            links.AppendLine($"                     <a href=\"/lazyadmin/{entity.ToLower()}/index\" class=\"nav-link\">");
+            links.AppendLine($"                         <i class=\"bi bi-diagram-2-fill\"></i>");
+            links.AppendLine($"                         <span class=\"nav-link-text\">{entity}</span>");
+            links.AppendLine("                       </a>");
+            links.AppendLine("                  </li>");
             links.AppendLine();
         }
         return links.ToString();

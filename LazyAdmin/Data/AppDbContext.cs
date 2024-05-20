@@ -11,6 +11,7 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Test> Tests { get; set; }
+    public DbSet<Book> Books { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

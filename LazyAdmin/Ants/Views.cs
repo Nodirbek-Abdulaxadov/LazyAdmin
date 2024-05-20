@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
+using System;
 using System.Text;
 
 namespace LazyAdmin.Ants;
@@ -8,56 +9,65 @@ internal static class Views
     internal static string Index(IEntityType entity)
     {
         var entityName = entity.DisplayName();
-        var entityNamespace = entity.ClrType.Namespace;
         string indexView = $$"""
-        @model List<{{entityName}}>
-        <div class="d-flex justify-content-between align-items-center">
-            <h2>{{entityName}} table</h2>
-            <a asp-action="Create" class="btn btn-success">
+        @using LazyAdmin.Ants
+        @model PageModel<{{entityName}}>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <div style="width: 25%;">
+                <h2>{{ViewHelpers.GetName(entityName)}} table</h2>
+                <hr />
+            </div>
+            <a href="/lazyadmin/{{entityName.ToLower()}}/create"  class="btn btn-success">
                 Create new {{entityName}}
             </a>
         </div>
-        <table class="table table-striped">
+        <table class="table">
             <thead>
                 <tr>
-                    {{GetProperties(entity)}}
+        {{ViewHelpers.GetProperties(entity)}}
+                    <th style="width: 160px;">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.Items)
                 {
                     <tr>
-                        {{GetPropertyValues(entity)}}
+        {{ViewHelpers.GetPropertyValues(entity)}}
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                            <a href="/lazyadmin/{{entityName.ToLower()}}/edit/@item.Id" class="btn btn-primary">Edit</a>
+                            <a href="/lazyadmin/{{entityName.ToLower()}}/delete/@item.Id" onclick="return confirm('Are sure delete this item?')" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+        @Html.Raw(Paginator.GetPartialView<{{entityName}}>(Model, "{{entityName}}", "Index"))
         """;
         return indexView;
     }
 
-    private static string GetProperties(IEntityType entity)
+    internal static string Create(IEntityType entity)
     {
-        var properties = new StringBuilder();
-        foreach (var property in entity.GetProperties())
-        {
-            properties.AppendLine($"                <th>{property.Name}</th>");
-        }
-        return properties.ToString();
+        var entityName = entity.DisplayName();
+        string createView = $$"""
+        @model {{entityName}}
+        <h2>Create new {{entityName}}</h2>
+        <hr />
+        <form class="d-flex justify-content-center" href="/lazyadmin/{{entityName.ToLower()}}/create" 
+              method="post" enctype="multipart/form-data">
+            <div class="form-group mt-3 form">
+                <div class="form-group">
+                    {{ViewHelpers.GetFormFields(entity)}}
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="/lazyadmin/{{entityName.ToLower()}}/index" class="btn btn-secondary mt-3 me-2">Cancel</a>
+                    <button type="submit" class="btn btn-success mt-3 ms-2">Create</button>
+                </div>
+            </div>
+        </form>
+        """;
+        return createView;
     }
 
-    private static string GetPropertyValues(IEntityType entity)
-    {
-        var propertyValues = new StringBuilder();
-        foreach (var property in entity.GetProperties())
-        {
-            propertyValues.AppendLine($"                <td>@item.{property.Name}</td>");
-        }
-        return propertyValues.ToString();
-    }
+    
 }

@@ -19,6 +19,7 @@ internal class Generator
         CreateImports(entities.Select(x => x.ClrType.Namespace).ToList()!);
         CreateViewStart();
         CreateViews(entities, ViewType.Index);
+        CreateViews(entities, ViewType.Create);
     }
     #endregion
 
@@ -74,8 +75,8 @@ internal class Generator
             var content = viewType switch
             {
                 ViewType.Index => Views.Index(entity),
-                /*ViewType.Create => Views.Create(entity),
-                ViewType.Edit => Views.Edit(entity),
+                ViewType.Create => Views.Create(entity),
+                /*ViewType.Edit => Views.Edit(entity),
                 ViewType.Details => Views.Details(entity),*/
                 _ => Views.Index(entity)
             };
@@ -96,8 +97,14 @@ internal class Generator
     {
         string filePath = Path.Combine("Areas", "LazyAdmin", "Views", "_ViewImports.cshtml");
         StringBuilder viewImports = new StringBuilder();
+        viewImports.AppendLine("@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers");
         foreach (var ns in namespaces)
         {
+            if (string.IsNullOrWhiteSpace(ns) && !viewImports.ToString().Contains(ns))
+            {
+                continue;
+            }
+
             viewImports.AppendLine($"@using {ns}");
         }
         FileCreate(filePath, viewImports.ToString());
