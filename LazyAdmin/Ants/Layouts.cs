@@ -41,6 +41,22 @@ internal static class Layouts
                     padding: 20px;
                 }
 
+                td {
+                    max-width: 150px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .table-container {
+                    overflow-x: auto;
+                    width: 100%;
+                }
+
+                .table {
+                    width: 100%;
+                    table-layout: auto;
+                }
 
                 .toggle-button {
                     height: 40px;
@@ -159,7 +175,7 @@ internal static class Layouts
         {
             links.AppendLine();
             links.AppendLine("                  <li class=\"nav-item\">");
-            links.AppendLine($"                     <a href=\"/lazyadmin/{entity.ToLower()}/index\" class=\"nav-link\">");
+            links.AppendLine($"                     <a href=\"/lazyadmin/{entity.ToLower()}/index\" class=\"nav-link\" style=\"color: white;\">");
             links.AppendLine($"                         <i class=\"bi bi-diagram-2-fill\"></i>");
             links.AppendLine($"                         <span class=\"nav-link-text\">{entity}</span>");
             links.AppendLine("                       </a>");

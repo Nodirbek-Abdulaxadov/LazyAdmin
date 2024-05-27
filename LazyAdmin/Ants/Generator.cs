@@ -20,6 +20,7 @@ internal class Generator
         CreateViewStart();
         CreateViews(entities, ViewType.Index);
         CreateViews(entities, ViewType.Create);
+        CreateViewModels(entities, dbContext);
     }
     #endregion
 
@@ -42,6 +43,11 @@ internal class Generator
             Directory.CreateDirectory("Areas/LazyAdmin/Controllers");
         }
 
+        if (!Directory.Exists("Areas/LazyAdmin/ViewModels"))
+        {
+            Directory.CreateDirectory("Areas/LazyAdmin/ViewModels");
+        }
+
         if (!Directory.Exists("Areas/LazyAdmin/Views"))
         {
             Directory.CreateDirectory("Areas/LazyAdmin/Views");
@@ -60,6 +66,14 @@ internal class Generator
             var content = ControllerCreator.GetControllerContent(entity, dbContext);
             var controllerPath = Path.Combine("Areas", "LazyAdmin", "Controllers", $"{entity.DisplayName()}Controller.cs");
             FileCreate(controllerPath, content);
+        }
+    }
+
+    private static void CreateViewModels(List<IEntityType> entities, DbContext context)
+    {
+        foreach (var entity in entities)
+        {
+            ViewModelCreator.CreateViewModels(entity);
         }
     }
 

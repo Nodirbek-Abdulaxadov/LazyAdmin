@@ -9,10 +9,12 @@
         Create new Book
     </a>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
+<div>
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                        <th>Id</th>
             <th>Author</th>
             <th>Description</th>
             <th>File</th>
@@ -25,14 +27,14 @@
             <th>Type</th>
             <th>Year</th>
 
-            <th style="width: 160px;">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Items)
-        {
-            <tr>
-                <td>@item.Id</td>
+                <th style="width: 160px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                        <td>@item.Id</td>
                 <td>@item.Author</td>
                 <td>@item.Description</td>
                 <td>@item.File</td>
@@ -45,12 +47,14 @@
                 <td>@item.Type</td>
                 <td>@item.Year</td>
 
-                <td>
-                    <a href="/lazyadmin/book/edit/@item.Id" class="btn btn-primary">Edit</a>
-                    <a href="/lazyadmin/book/delete/@item.Id" onclick="return confirm('Are sure delete this item?')" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-@Html.Raw(Paginator.GetPartialView<Book>(Model, "Book", "Index"))
+                        <td>
+                            <a href="/lazyadmin/book/edit/@item.Id" class="btn btn-primary">Edit</a>
+                            <a href="/lazyadmin/book/delete/@item.Id" onclick="return confirm('Are sure delete this item?')" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+        </tbody>
+    </table>
+</div>
+
+@Html.Raw(Paginator.GetPartialView<Book>(Model, "book", "index", "lazyadmin"))

@@ -15,6 +15,8 @@ public class Book
     public string Image { get; set; }
     public string File { get; set; }
 
+    public ICollection<Test> Tests { get; set; } = new List<Test>();
+
 }
 
 public enum BookType

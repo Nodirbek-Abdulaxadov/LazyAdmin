@@ -30,7 +30,10 @@ internal static class ViewHelpers
         var formFields = new StringBuilder();
         foreach (var property in entity.GetProperties())
         {
-            if (property.Name == "Id") continue;
+            if (property.Name == "Id" || property.Name == "CreatedAt" || property.Name == "UpdatedAt")
+            {
+                continue;
+            }
 
             if (IsEnumType(property))
             {

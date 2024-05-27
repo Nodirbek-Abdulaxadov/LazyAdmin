@@ -1,5 +1,6 @@
 using LazyAdmin.Ants;
 using LazyAdmin.Data;
+using LazyAdmin.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,8 @@ app.MapControllerRoute(
 
 var scope = app.Services.CreateScope();
 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//RManager<Test>.HasManyToOneRelation(dbContext);
 LazyAdminInitializer<AppDbContext>.Initialize(dbContext);
+
 
 app.Run();

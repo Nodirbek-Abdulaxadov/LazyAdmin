@@ -32,6 +32,22 @@
             padding: 20px;
         }
 
+        td {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        .table {
+            width: 100%;
+            table-layout: auto;
+        }
 
         .toggle-button {
             height: 40px;
@@ -77,7 +93,7 @@
                     </li>
                     
                   <li class="nav-item">
-                     <a href="/lazyadmin/book/index" class="nav-link">
+                     <a href="/lazyadmin/book/index" class="nav-link" style="color: white;">
                          <i class="bi bi-diagram-2-fill"></i>
                          <span class="nav-link-text">Book</span>
                        </a>
@@ -85,7 +101,7 @@
 
 
                   <li class="nav-item">
-                     <a href="/lazyadmin/test/index" class="nav-link">
+                     <a href="/lazyadmin/test/index" class="nav-link" style="color: white;">
                          <i class="bi bi-diagram-2-fill"></i>
                          <span class="nav-link-text">Test</span>
                        </a>

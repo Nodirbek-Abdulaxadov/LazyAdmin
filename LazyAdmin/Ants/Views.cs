@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
-using System;
-using System.Text;
 
 namespace LazyAdmin.Ants;
 
@@ -21,26 +19,30 @@ internal static class Views
                 Create new {{entityName}}
             </a>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-        {{ViewHelpers.GetProperties(entity)}}
-                    <th style="width: 160px;">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Items)
-                {
+        <div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
                     <tr>
-        {{ViewHelpers.GetPropertyValues(entity)}}
-                        <td>
-                            <a href="/lazyadmin/{{entityName.ToLower()}}/edit/@item.Id" class="btn btn-primary">Edit</a>
-                            <a href="/lazyadmin/{{entityName.ToLower()}}/delete/@item.Id" onclick="return confirm('Are sure delete this item?')" class="btn btn-danger">Delete</a>
-                        </td>
+                    {{ViewHelpers.GetProperties(entity)}}
+                        <th style="width: 160px;">Actions</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                {{ViewHelpers.GetPropertyValues(entity)}}
+                                <td>
+                                    <a href="/lazyadmin/{{entityName.ToLower()}}/edit/@item.Id" class="btn btn-primary">Edit</a>
+                                    <a href="/lazyadmin/{{entityName.ToLower()}}/delete/@item.Id" onclick="return confirm('Are sure delete this item?')" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                </tbody>
+            </table>
+        </div>
+        
         @Html.Raw(Paginator.GetPartialView<{{entityName}}>(Model, "{{entityName.ToLower()}}", "index", "lazyadmin"))
         """;
         return indexView;

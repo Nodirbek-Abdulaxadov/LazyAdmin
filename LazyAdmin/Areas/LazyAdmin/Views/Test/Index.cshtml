@@ -9,32 +9,38 @@
         Create new Test
     </a>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
+<div>
+<div class="table-container">
+    <table class="table">
+        <thead>
+            <tr>
+                        <th>Id</th>
+            <th>BookId</th>
             <th>Description</th>
             <th>Name</th>
             <th>Number</th>
 
-            <th style="width: 160px;">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Items)
-        {
-            <tr>
-                <td>@item.Id</td>
+                <th style="width: 160px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                        <td>@item.Id</td>
+                <td>@item.BookId</td>
                 <td>@item.Description</td>
                 <td>@item.Name</td>
                 <td>@item.Number</td>
 
-                <td>
-                    <a href="/lazyadmin/test/edit/@item.Id" class="btn btn-primary">Edit</a>
-                    <a href="/lazyadmin/test/delete/@item.Id" onclick="return confirm('Are sure delete this item?')" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-@Html.Raw(Paginator.GetPartialView<Test>(Model, "Test", "Index"))
+                        <td>
+                            <a href="/lazyadmin/test/edit/@item.Id" class="btn btn-primary">Edit</a>
+                            <a href="/lazyadmin/test/delete/@item.Id" onclick="return confirm('Are sure delete this item?')" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+        </tbody>
+    </table>
+</div>
+
+@Html.Raw(Paginator.GetPartialView<Test>(Model, "test", "index", "lazyadmin"))
